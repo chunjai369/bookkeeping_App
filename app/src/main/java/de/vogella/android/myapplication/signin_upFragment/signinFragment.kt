@@ -77,7 +77,6 @@ class signinFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        println("onPause")
         textPasseord.setText("")
     }
 
