@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.Response
 import com.android.volley.toolbox.Volley
+import de.vogella.android.myapplication.components.requestQueue_Manager
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
@@ -31,28 +31,17 @@ class MainActivity : AppCompatActivity() {
             if (token == "noToken") {
                 goLogin()
             }else{
-                val req = object : JsonObjectRequest(Request.Method.POST,
-                    url,
-                    null,
-                    {res ->
-                        val isVerify = res.getBoolean("verify")
-                        if(isVerify){
-                            startActivity(Intent(this, mainpage::class.java))
-                            finish()
-                        }else{
-                            pref.edit().remove("token").commit()
-                            goLogin()
-                        }
-                    },
-                    {error -> Log.e("showLog", error.toString()) }){
-
-                    override fun getHeaders(): MutableMap<String, String> {
-                        val headers = HashMap<String, String>()
-                        headers["Authorization"] = "Bearer $token"
-                        return headers
+                val req = requestQueue_Manager(this)
+                req.Request("post",url,null,Response.Listener<JSONObject>{ res ->
+                    val isVerify = res.getBoolean("verify")
+                    if(isVerify){
+                        startActivity(Intent(this, mainpage::class.java))
+                        finish()
+                    }else{
+                        pref.edit().remove("token").commit()
+                        goLogin()
                     }
-                }
-                queue.add(req)
+                })
             }
         }
     }
@@ -63,4 +52,5 @@ class MainActivity : AppCompatActivity() {
             finish()
         }, 2000)
     }
+
 }
