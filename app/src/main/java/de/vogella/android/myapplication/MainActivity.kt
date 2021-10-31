@@ -7,6 +7,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.android.volley.Response
+import de.vogella.android.myapplication.components.createBuilder
 import de.vogella.android.myapplication.components.requestQueue_Manager
 import org.json.JSONObject
 
@@ -24,15 +25,13 @@ class MainActivity : AppCompatActivity() {
         var overConnect = false
         var isConnect = false
         var oldVersion = false
+        val builderCreateManager = createBuilder(this)
         Handler(Looper.getMainLooper()).postDelayed({
             if(!isConnect) {
                 overConnect = true
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle(R.string.error)
-                builder.setMessage(R.string.Connect_time_out)
-                builder.setPositiveButton("Confirm",{ dialog, whichButton ->
-                    System.exit(0)
-                })
+                val builder = builderCreateManager.basisBulider(R.string.error,R.string.Connect_time_out) {
+                        ialog, whichButton -> System.exit(0)
+                }
                 val dialog = builder.create()
                 dialog.show()
             }
@@ -50,12 +49,9 @@ class MainActivity : AppCompatActivity() {
                     }else{
                         if (version != res.getString("Version")){
                             oldVersion = true
-                            val builder = AlertDialog.Builder(this)
-                            builder.setTitle(R.string.error)
-                            builder.setMessage(R.string.update_version)
-                            builder.setPositiveButton("Confirm",{ dialog, whichButton ->
-                                System.exit(0)
-                            })
+                            val builder = builderCreateManager.basisBulider(R.string.error,R.string.update_version) {
+                                    ialog, whichButton -> System.exit(0)
+                            }
                             val dialog = builder.create()
                             dialog.show()
                         }

@@ -5,9 +5,9 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import de.vogella.android.myapplication.R
 
-class creatBulider (context: Context){
+class createBuilder (context: Context){
     val context = context
-    fun basisBulider(title:String , message:String , btnFuntion: DialogInterface.OnClickListener) : AlertDialog.Builder{
+    fun basisBulider(title:Int , message:Int , btnFuntion: DialogInterface.OnClickListener) : AlertDialog.Builder{
         val builder = AlertDialog.Builder(context)
         builder.setTitle(R.string.error)
         builder.setMessage(R.string.Connect_time_out)
