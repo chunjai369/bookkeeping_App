@@ -14,20 +14,22 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import de.vogella.android.myapplication.R
+import de.vogella.android.myapplication.components.createBuilder
 import de.vogella.android.myapplication.mainpage
 import org.json.JSONObject
 
 class signinFragment : Fragment() {
     private lateinit var queue: RequestQueue
-
+    private lateinit var textPasseord:EditText
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.signin_fragment, container, false)
-        val btn = root.findViewById<View>(R.id.signinButton) as Button
+        val btn = root.findViewById(R.id.signinButton) as Button
         val textEmail = root.findViewById(R.id.signinEmail) as EditText
-        val textPasseord = root.findViewById(R.id.singinPassword) as EditText
+        val buliderManager = context?.let{ createBuilder(it) }
+        textPasseord = root.findViewById(R.id.singinPassword)
         val pref = context?.getSharedPreferences("bookkeeping",0)
         val url = "http://10.0.2.2:3001/login"
         if (pref != null) {
@@ -40,7 +42,6 @@ class signinFragment : Fragment() {
             jsonObj.put("email",textEmail.text.toString())
             jsonObj.put("password",textPasseord.text.toString())
             queue = Volley.newRequestQueue(activity)
-
             val req = JsonObjectRequest(
                 Request.Method.POST,
                 url,
@@ -60,6 +61,11 @@ class signinFragment : Fragment() {
                         }
                     }else{
                         Log.e("showLog", "login fall")
+                        val builder = buliderManager?.basisBulider(R.string.loginfail,R.string.check_email_password){
+                            Log.v("hihi","test")
+                        }
+                        val dialog = builder?.create()
+                        dialog?.show()
                     }
                 },
                 { error -> Log.e("showLog", error.toString()) })
@@ -68,4 +74,11 @@ class signinFragment : Fragment() {
         }
         return root
     }
+
+    override fun onPause() {
+        super.onPause()
+        println("onPause")
+        textPasseord.setText("")
+    }
+
 }
