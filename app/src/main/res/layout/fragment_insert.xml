@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainpage_Fragment.insert_page.insert"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="113dp"
+        android:layout_height="35dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="@string/insert" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/insert_tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/insert_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/non_num_income" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/expend_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/non_num_expend" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/insert_container"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:background="@drawable/border" />
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mainpage_Fragment.analyze_page.expendReport_Fragment">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart2"
+        android:layout_width="match_parent"
+        android:layout_height="216dp"></com.github.mikephil.charting.charts.PieChart>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/report_RecyclerView2"
+        android:layout_width="match_parent"
+        android:layout_height="517dp" />
+
+</LinearLayout>

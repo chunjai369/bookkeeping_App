@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/record"
+        android:title="@string/record"
+        />
+    <item
+        android:id="@+id/insert"
+        android:title="@string/insert"
+        />
+    <item
+        android:id="@+id/analyze"
+        android:title="@string/analyze"
+        />
+    <item
+        android:id="@+id/other"
+        android:title="@string/other"
+        />
+</menu>

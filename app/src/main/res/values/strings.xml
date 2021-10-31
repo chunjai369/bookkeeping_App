@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="signin">SIGN IN</string>
+    <string name="signup">SIGN UP</string>
+    <string name="email">Email</string>
+    <string name="password">密碼</string>
+    <string name="username">用戶名稱</string>
+    <string name="logout">Log Out</string>
+    <string name="record">紀錄</string>
+    <string name="insert">新增</string>
+    <string name="analyze">分析</string>
+    <string name="other">其他</string>
+    <string name="record_title">收支紀錄</string>
+    <string name="income">收入</string>
+    <string name="expend">支出</string>
+    <string name="non_num_income">收入</string>
+    <string name="non_num_expend">支出</string>
+    <string name="total">淨利</string>
+    <string name="Year">(年)</string>
+    <string name="month">(月)</string>
+    <string-array name="months">
+        <item>all</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+    <string-array name="years">
+        <item>all</item>
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+    </string-array>
+    <string name="day">日</string>
+
+    <string name="time">時間</string>
+    <string name="money">金額</string>
+    <string name="type">類別</string>
+    <string name="pay">方式</string>
+    <string name="note">備註</string>
+
+    <string name="save">儲存</string>
+    <string name="next">下一筆</string>
+    <string name="create_date">注冊日期  :</string>
+    <string name="update_date">上次更新日期  :</string>
+    <string name="email2">Email  :</string>
+    <string name="password2">密碼  :</string>
+    <string name="user">用戶</string>
+    <string name="userdata">用戶資料</string>
+    <string name="game1">投資遊戲</string>
+    <string name="info">資訊</string>
+    <string name="weather">天氣</string>
+    <string name="exchange">外匯</string>
+    <string name="sex">性別  :</string>
+    <string name="birthday">生日</string>
+    <string name="username2">用戶名稱  :</string>
+    <string name="star">*********</string>
+    <string name="app_update_date">版本發布日期  :</string>
+    <string name="app_update_ver">目前版本  :</string>
+    <string name="app_update_info">更新內容  :</string>
+    <string name="app_update_privacy">隱私政策  :</string>
+    <string name="incomeReprot">收入報告</string>
+    <string name="expendReprot">支出報告</string>
+    <string name="test1">test1</string>
+    <string name="test2">test2</string>
+    <string name="test3">開發中</string>
+    <string name="test4">test4</string>
+
+    <string name="title_activity_userpage">userpageActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
