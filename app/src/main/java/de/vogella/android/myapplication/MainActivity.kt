@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import androidx.appcompat.app.AlertDialog
 import com.android.volley.Response
 import de.vogella.android.myapplication.components.createBuilder
 import de.vogella.android.myapplication.components.requestQueue_Manager
@@ -29,9 +27,8 @@ class MainActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             if(!isConnect) {
                 overConnect = true
-                val builder = builderCreateManager.basisBulider(R.string.error,R.string.Connect_time_out) {
-                        ialog, whichButton -> System.exit(0)
-                }
+                val builder = builderCreateManager.basisBulider(R.string.error,R.string.Connect_time_out)
+
                 val dialog = builder.create()
                 dialog.show()
             }
@@ -49,9 +46,7 @@ class MainActivity : AppCompatActivity() {
                     }else{
                         if (version != res.getString("Version")){
                             oldVersion = true
-                            val builder = builderCreateManager.basisBulider(R.string.error,R.string.update_version) {
-                                    ialog, whichButton -> System.exit(0)
-                            }
+                            val builder = builderCreateManager.basisBulider(R.string.error,R.string.update_version)
                             val dialog = builder.create()
                             dialog.show()
                         }

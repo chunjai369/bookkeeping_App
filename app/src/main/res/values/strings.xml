@@ -22,6 +22,8 @@
     <string name="Connect_time_out">與伺服器連線超時</string>
     <string name="error">錯誤</string>
     <string name="update_version">請更新至最新版本</string>
+    <string name="loginfail">登入失敗</string>
+    <string name="check_email_password">請檢查Email或密碼</string>
     <string-array name="months">
         <item>all</item>
         <item>1</item>
