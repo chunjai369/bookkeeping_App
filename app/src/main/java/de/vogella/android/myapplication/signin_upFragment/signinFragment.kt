@@ -58,14 +58,13 @@ class signinFragment : Fragment() {
                             activity?.finish()
                         }else{
                             Log.e("showLog", "Commit error")
+                            val builder = buliderManager?.basisBulider(R.string.error,R.string.local_commit_error,null)
+                            builder?.create()?.show()
                         }
                     }else{
                         Log.e("showLog", "login fall")
-                        val builder = buliderManager?.basisBulider(R.string.loginfail,R.string.check_email_password){
-                            Log.v("hihi","test")
-                        }
-                        val dialog = builder?.create()
-                        dialog?.show()
+                        val builder = buliderManager?.basisBulider(R.string.loginfail,R.string.check_email_password,null)
+                        builder?.create()?.show()
                     }
                 },
                 { error -> Log.e("showLog", error.toString()) })

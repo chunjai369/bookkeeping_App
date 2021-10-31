@@ -28,6 +28,7 @@
     <string name="email_used">此Email已被使用</string>
     <string name="isSignup">注冊成功</string>
     <string name="tips">提示</string>
+    <string name="local_commit_error">本地資料讀取錯誤</string>
     <string-array name="months">
         <item>all</item>
         <item>1</item>
