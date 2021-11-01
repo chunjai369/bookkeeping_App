@@ -1,6 +1,5 @@
 package de.vogella.android.myapplication.mainpage_Fragment.record_page.item_Fragment
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import de.vogella.android.myapplication.R
 import de.vogella.android.myapplication.mainpage_Fragment.insert_page.insert_expend_Fragment
 import de.vogella.android.myapplication.mainpage_Fragment.insert_page.insert_income_Fragment
-import de.vogella.android.myapplication.mainpage_Fragment.record_page.item_Info_Fragment
-import de.vogella.android.signin_upFragment.signinFragment
 
 class item_Adapter (private val fa: FragmentManager,private val is_income:Boolean, private val dataSet: ArrayList<ArrayList<String>>):
     RecyclerView.Adapter<item_Adapter.ViewHolder>(){
@@ -23,8 +20,8 @@ class item_Adapter (private val fa: FragmentManager,private val is_income:Boolea
         val delete_imageView = view.findViewById(R.id.item_del) as ImageView
         var textView: ArrayList<TextView> = arrayListOf()
         val textView_id :ArrayList<Int> = arrayListOf(
-            R.id.item_class
-            , R.id.item_type
+            R.id.item_type
+            , R.id.item_class
             , R.id.item_money
         )
         init {

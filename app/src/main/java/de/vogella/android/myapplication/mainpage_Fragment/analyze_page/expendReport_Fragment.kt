@@ -16,7 +16,7 @@ import de.vogella.android.myapplication.components.requestQueue_Manager
 import org.json.JSONArray
 
 class expendReport_Fragment : Fragment() {
-    private val url = "http://10.0.2.2:3001/trade/expend"
+    private val url = "http://10.0.2.2:3001/trade/income_expend?type=expend"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,11 +32,9 @@ class expendReport_Fragment : Fragment() {
         piechart.getDescription().setEnabled(false)
         val queue_Manager = context?.let { requestQueue_Manager(it) }
         if (queue_Manager != null) {
-            queue_Manager.Request("get",url,null, Response.Listener<JSONArray>{
-                    res ->
-                Log.v("showLog",res.getJSONObject(0).toString())
+            queue_Manager.Request("get",url,null, Response.Listener<JSONArray>{ res ->
                 var total = 0F
-                for(i in 0..res.length()-1){
+                for(i in 0 until res.length()){
                     var tempClass = res.getJSONObject(i).getString("class").toString()
                     var tempMoney = res.getJSONObject(i).getString("how_mach").toInt()
                     if (!datamap.containsKey(tempClass)) {

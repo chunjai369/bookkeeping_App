@@ -16,7 +16,7 @@ import de.vogella.android.myapplication.components.requestQueue_Manager
 import org.json.JSONArray
 
 class incomeReport_Fragment : Fragment() {
-    private val url = "http://10.0.2.2:3001/trade/income"
+    private val url = "http://10.0.2.2:3001/trade/income_expend?type=income"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,36 +31,34 @@ class incomeReport_Fragment : Fragment() {
         piechart.getDescription().setEnabled(false)
         val queue_Manager = context?.let { requestQueue_Manager(it) }
         if (queue_Manager != null) {
-            queue_Manager.Request("get",url,null, Response.Listener<JSONArray>{
-                res ->
-                    Log.v("showLog",res.getJSONObject(0).toString())
-                    var total = 0F
-                    for(i in 0..res.length()-1){
-                        var tempClass = res.getJSONObject(i).getString("class").toString()
-                        var tempMoney = res.getJSONObject(i).getString("how_mach").toInt()
-                        if (!datamap.containsKey(tempClass)) {
-                            datamap.put(tempClass, tempMoney)
-                        }else{
-                            var temp = datamap[tempClass]!!
-                            temp += tempMoney
-                            datamap.put(tempClass,temp)
-                        }
-                        total += tempMoney
+            queue_Manager.Request("get",url,null, Response.Listener<JSONArray>{ res ->
+                var total = 0F
+                for(i in 0..res.length()-1){
+                    var tempClass = res.getJSONObject(i).getString("class").toString()
+                    var tempMoney = res.getJSONObject(i).getString("how_mach").toInt()
+                    if (!datamap.containsKey(tempClass)) {
+                        datamap.put(tempClass, tempMoney)
+                    }else{
+                        var temp = datamap[tempClass]!!
+                        temp += tempMoney
+                        datamap.put(tempClass,temp)
                     }
-                    for (i in datamap.keys){
-                        var tempArrayList : ArrayList<String> = arrayListOf()
-                        var temp1 = datamap[i]
-                        tempArrayList.add(i)
-                        if (temp1 != null) {
-                            tempArrayList.add(String.format("%.2f",((temp1/total)*100)))
-                        }
-                        tempArrayList.add(temp1.toString())
-                        data.add(tempArrayList)
+                    total += tempMoney
+                }
+                for (i in datamap.keys){
+                    var tempArrayList : ArrayList<String> = arrayListOf()
+                    var temp1 = datamap[i]
+                    tempArrayList.add(i)
+                    if (temp1 != null) {
+                        tempArrayList.add(String.format("%.2f",((temp1/total)*100)))
                     }
-                    recyclerView.adapter = report_Adapter(data)
-                    val pieData = context?.let { createPiechat(it) }?.getPiechatData(data)
-                    piechart.setData(pieData)
-                    piechart.invalidate()
+                    tempArrayList.add(temp1.toString())
+                    data.add(tempArrayList)
+                }
+                recyclerView.adapter = report_Adapter(data)
+                val pieData = context?.let { createPiechat(it) }?.getPiechatData(data)
+                piechart.setData(pieData)
+                piechart.invalidate()
             })
         }
         return root
