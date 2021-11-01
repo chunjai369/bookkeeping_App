@@ -39,10 +39,18 @@
 
         <ImageView
             android:id="@+id/item_edit"
-            android:layout_width="10dp"
-            android:layout_height="25dp"
+            android:layout_width="5dp"
+            android:layout_height="20dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
+            app:srcCompat="@drawable/ic_fi_rr_edit" />
+
+        <ImageView
+            android:id="@+id/item_del"
+            android:layout_width="5dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_fi_rr_trash" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -47,7 +47,6 @@ class record_Adapter (private val dataSet: ArrayList<ArrayList<String>>):
             j++
         }
         viewHolder.imageView.setOnClickListener{ v ->
-            Log.v("hihi","ggg")
             val intent =Intent(v.context, record_itemInformationActivity::class.java)
             intent.putExtra("date", dataSet[position][0])
             v.context.startActivity(intent)
