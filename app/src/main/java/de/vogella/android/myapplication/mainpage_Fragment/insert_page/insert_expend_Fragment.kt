@@ -14,6 +14,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import de.vogella.android.myapplication.R
+import de.vogella.android.myapplication.components.get_data
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -74,7 +75,6 @@ class insert_expend_Fragment : Fragment() {
                     return headers
                 }
             }
-            Log.v("showLog", req.toString())
             queue.add(req)
 
         }
@@ -87,5 +87,17 @@ class insert_expend_Fragment : Fragment() {
         }
 
         return root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        clear()
+    }
+
+    fun clear(){
+        val getEditView = view?.let { get_data(it) }?.get_EditText(editText_id)
+        if (getEditView != null)
+            for (i in getEditView)
+                i.setText("")
     }
 }

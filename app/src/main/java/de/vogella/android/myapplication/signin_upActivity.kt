@@ -20,7 +20,7 @@ class signin_upActivity : AppCompatActivity() {
         val fragments: ArrayList<Fragment> = arrayListOf(
         signinFragment(),
         signupFragment())
-        val pagerAdapter = PageAdapter(this,fragments)
+        val pagerAdapter = PageAdapter(supportFragmentManager,lifecycle,fragments)
         viewPager.adapter = pagerAdapter
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = title[position]
