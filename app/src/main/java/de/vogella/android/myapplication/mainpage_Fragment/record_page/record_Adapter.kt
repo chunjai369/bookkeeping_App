@@ -1,16 +1,21 @@
 package de.vogella.android.myapplication.mainpage_Fragment.record_page
 
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import de.vogella.android.myapplication.R
+import de.vogella.android.myapplication.record_itemInformationActivity
+
 
 class record_Adapter (private val dataSet: ArrayList<ArrayList<String>>):
     RecyclerView.Adapter<record_Adapter.ViewHolder>() {
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val imageView = view.findViewById(R.id.long_information) as ImageView
         var textView: ArrayList<TextView> = arrayListOf()
         val textView_id :ArrayList<Int> = arrayListOf(
             R.id.record_Item_date
@@ -40,6 +45,12 @@ class record_Adapter (private val dataSet: ArrayList<ArrayList<String>>):
                 else -> i.text = "$" + dataSet[position][j]
             }
             j++
+        }
+        viewHolder.imageView.setOnClickListener{ v ->
+            Log.v("hihi","ggg")
+            val intent =Intent(v.context, record_itemInformationActivity::class.java)
+            intent.putExtra("date", dataSet[position][0])
+            v.context.startActivity(intent)
         }
     }
 

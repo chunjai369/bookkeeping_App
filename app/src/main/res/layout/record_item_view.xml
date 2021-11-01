@@ -26,7 +26,7 @@
                 android:textSize="20sp" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/long_information"
                 android:layout_width="135dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
