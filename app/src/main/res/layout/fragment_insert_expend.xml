@@ -73,17 +73,17 @@
         android:layout_marginStart="88dp"
         android:layout_marginTop="36dp"
         android:text="@string/save"
-        app:layout_constraintEnd_toStartOf="@+id/expend_next"
+        app:layout_constraintEnd_toStartOf="@+id/expend_clear"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expend_info" />
 
     <Button
-        android:id="@+id/expend_next"
+        android:id="@+id/expend_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="@string/next"
+        android:text="@string/clear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintStart_toStartOf="parent"

@@ -59,7 +59,10 @@
     <string name="note">備註</string>
 
     <string name="save">儲存</string>
+    <string name="is_save">儲存成功</string>
+    <string name="not_save">儲存失敗</string>
     <string name="next">下一筆</string>
+    <string name="clear">清除</string>
     <string name="create_date">注冊日期  :</string>
     <string name="update_date">上次更新日期  :</string>
     <string name="email2">Email  :</string>

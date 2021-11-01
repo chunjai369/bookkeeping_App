@@ -85,17 +85,14 @@ class signupFragment : Fragment() {
                         if(res.getBoolean("haveEmail")){
                             val bulid = builderManage?.basisBulider(
                                 R.string.error,
-                                R.string.email_used,
-                                null
-                            )
+                                R.string.email_used){}
                             bulid?.create()?.show()
                         }
                         if(res.getBoolean("isSignup")){
                             Log.v("hh",res.toString())
                             clean()
                             val bulid = builderManage?.basisBulider(R.string.tips,
-                                R.string.isSignup,
-                                null)
+                                R.string.isSignup){}
                             bulid?.create()?.show()
                         }
                     },
@@ -104,15 +101,12 @@ class signupFragment : Fragment() {
             }else{
                 if (username == ""){
                     val bulid = builderManage?.basisBulider(R.string.error,
-                        R.string.input_username,
-                        null)
+                        R.string.input_username){}
                     bulid?.create()?.show()
                 } else {
                     val bulid = builderManage?.basisBulider(
                         R.string.error,
-                        R.string.check_email_password,
-                        null
-                    )
+                        R.string.check_email_password){}
                     bulid?.create()?.show()
                 }
             }
