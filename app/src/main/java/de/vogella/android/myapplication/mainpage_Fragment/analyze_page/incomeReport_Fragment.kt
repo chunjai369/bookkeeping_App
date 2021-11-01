@@ -66,9 +66,4 @@ class incomeReport_Fragment : Fragment() {
         return root
     }
 
-    override fun onPause() {
-        super.onPause()
-        Log.v("showLog","Pause")
-    }
-
 }

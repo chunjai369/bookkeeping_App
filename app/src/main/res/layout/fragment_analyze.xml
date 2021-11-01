@@ -6,21 +6,25 @@
     android:orientation="vertical"
     tools:context=".mainpage_Fragment.analyze_page.analyze">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/report_bottomNavigationView"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/report_tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:itemIconTint="@color/bottom_nav_color"
-        app:itemTextColor="@color/bottom_nav_color"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/analyze_menu" />
+        android:layout_height="63dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/report_container"
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/incomeReprot" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expendReprot" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/reportView_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        android:layout_height="match_parent" />
 </LinearLayout>
