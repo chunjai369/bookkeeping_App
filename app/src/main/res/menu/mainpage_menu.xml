@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/record"
-        android:title="@string/record"
-        />
+        android:icon="@drawable/ic_fi_rr_document"
+        android:title="@string/record" />
     <item
         android:id="@+id/insert"
-        android:title="@string/insert"
-        />
+        android:icon="@drawable/ic_fi_rr_add"
+        android:title="@string/insert" />
     <item
         android:id="@+id/analyze"
-        android:title="@string/analyze"
-        />
+        android:icon="@drawable/ic_fi_rr_chart_pie"
+        android:title="@string/analyze" />
     <item
         android:id="@+id/other"
-        android:title="@string/other"
-        />
+        android:icon="@drawable/ic_fi_rr_line_width"
+        android:title="@string/other" />
 </menu>
