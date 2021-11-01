@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.vogella.android.myapplication.R
+import de.vogella.android.myapplication.components.requestQueue_Manager
 import de.vogella.android.myapplication.mainpage_Fragment.record_page.item_Fragment.item_Adapter
 
 class item_Info_Fragment : Fragment() {
@@ -34,7 +35,6 @@ class item_Info_Fragment : Fragment() {
             arrayListOf("aaad","aaj","1236"),
             arrayListOf("aaae","aak","1237"),
         )
-
         val testdata2 = arrayListOf(
             arrayListOf("aaar","aaa","123"),
             arrayListOf("aaaae","aaqf","71233"),
@@ -43,6 +43,9 @@ class item_Info_Fragment : Fragment() {
             arrayListOf("aaadu","aafj","61236"),
             arrayListOf("aaaei","aavk","81237"),
         )
+
+        val requestManage = context?.let { requestQueue_Manager(it) }
+        
 
         recyclerView_income.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView_income.adapter = manager?.let { item_Adapter(it, true,testdata1) }

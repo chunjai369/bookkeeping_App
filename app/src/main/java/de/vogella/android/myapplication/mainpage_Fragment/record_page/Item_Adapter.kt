@@ -55,7 +55,7 @@ class item_Adapter (private val fa: FragmentManager,private val is_income:Boolea
                 val transaction = fa.beginTransaction()
                 transaction.addToBackStack("firstPage")
                 val bundle = Bundle()
-                bundle.putString("date","")
+                bundle.putStringArrayList("date",dataSet[position])
                 var fragment:Fragment
                 if (is_income)
                     fragment = insert_income_Fragment()
