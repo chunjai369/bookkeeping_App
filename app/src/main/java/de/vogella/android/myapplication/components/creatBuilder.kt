@@ -15,11 +15,16 @@ class createBuilder (context: Context){
         return  builder
     }
 
-    fun basisBulider(title:Int, message:Int , btnFuntion: (()->Unit)?) : AlertDialog.Builder{
+    fun basisBulider(title:Int, message:Int , is_OnCance:Boolean? = false,btnFuntion: (()->Unit)?) : AlertDialog.Builder{
         val builder = AlertDialog.Builder(context)
         builder.setTitle(title)
         builder.setMessage(message)
         builder.setPositiveButton("Confirm", { ialog, whichButton -> btnFuntion })
+        if (is_OnCance != null){
+            if (is_OnCance){
+                builder.setOnCancelListener{btnFuntion}
+            }
+        }
         return  builder
     }
 

@@ -9,13 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import de.vogella.android.myapplication.R
+import de.vogella.android.myapplication.components.createBuilder
+import de.vogella.android.myapplication.components.get_data
+import de.vogella.android.myapplication.components.requestQueue_Manager
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
+
 
 class insert_expend_Fragment : Fragment() {
     private  val editText_id: ArrayList<Int> =  arrayListOf(
@@ -25,7 +24,6 @@ class insert_expend_Fragment : Fragment() {
         R.id.expend_pay,
         R.id.expend_info
     )
-    private lateinit var queue: RequestQueue
     private val url = "http://10.0.2.2:3001/trade"
 
     override fun onCreateView(
@@ -36,7 +34,7 @@ class insert_expend_Fragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_insert_expend, container, false)
         val gatdata = get_trade_data(root)
         val btn = root.findViewById<Button>(R.id.expend_save)
-        val btn2 = root.findViewById<Button>(R.id.expend_next)
+        val btn2 = root.findViewById<Button>(R.id.expend_clear)
         val date = root.findViewById<EditText>(R.id.expend_time)
         date.onFocusChangeListener = View.OnFocusChangeListener{root, b->
             if (b){
@@ -53,39 +51,37 @@ class insert_expend_Fragment : Fragment() {
         }
 
         btn.setOnClickListener {
-            val pref = context?.getSharedPreferences("bookkeeping",0)
-            val email = pref?.getString("email","")
-            val token = pref?.getString("token", "noToken")
-            val jsonData = email?.let { it1 -> gatdata.get_jsonData(editText_id, it1,1) }
-            Log.v("showLog", jsonData.toString())
+            val jsonData = gatdata.get_jsonData(editText_id,1)
 
-            queue = Volley.newRequestQueue(activity)
-            val req = object : JsonObjectRequest(
-                Request.Method.POST,
-                url,
-                jsonData,
-                { res ->
-                    Log.v("showLog", res.toString())
-                },
-                { error -> Log.e("showLog", error.toString()) }){
-                override fun getHeaders(): MutableMap<String, String> {
-                    val headers = HashMap<String, String>()
-                    headers["Authorization"] = "Bearer $token"
-                    return headers
+            val requestManage = context?.let{ requestQueue_Manager(it) }
+            requestManage?.Request("post",url,jsonData){ res ->
+                if (res.getBoolean("is_save")){
+                    val builder = context?.let{ createBuilder(it) }
+                    builder?.basisBulider(R.string.tips,R.string.is_save){}?.show()
+                    clear()
+                }else{
+                    val builder = context?.let{ createBuilder(it) }
+                    builder?.basisBulider(R.string.error,R.string.not_save){}?.show()
                 }
             }
-            Log.v("showLog", req.toString())
-            queue.add(req)
-
         }
 
         btn2.setOnClickListener {
-            val editText : ArrayList<EditText> = gatdata.get_EditText(editText_id)
-            for(i in editText){
-                i.setText("")
-            }
+            clear()
         }
 
         return root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        clear()
+    }
+
+    fun clear(){
+        val getEditView = view?.let { get_data(it) }?.get_EditText(editText_id)
+        if (getEditView != null)
+            for (i in getEditView)
+                i.setText("")
     }
 }

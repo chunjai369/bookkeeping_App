@@ -11,11 +11,11 @@
         android:layout_width="300dp"
         android:layout_height="46dp"
         android:layout_marginTop="48dp"
-        android:layout_marginEnd="56dp"
         android:ems="10"
         android:hint="@string/time"
         android:inputType="date|datetime|time"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -23,11 +23,11 @@
         android:layout_width="300dp"
         android:layout_height="46dp"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="56dp"
         android:ems="10"
         android:hint="@string/money"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -35,11 +35,11 @@
         android:layout_width="300dp"
         android:layout_height="46dp"
         android:layout_marginTop="152dp"
-        android:layout_marginEnd="56dp"
         android:ems="10"
         android:hint="@string/type"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -47,11 +47,11 @@
         android:layout_width="300dp"
         android:layout_height="46dp"
         android:layout_marginTop="256dp"
-        android:layout_marginEnd="56dp"
         android:ems="10"
         android:hint="@string/note"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -59,30 +59,33 @@
         android:layout_width="300dp"
         android:layout_height="46dp"
         android:layout_marginTop="204dp"
-        android:layout_marginEnd="56dp"
         android:ems="10"
         android:hint="@string/pay"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/expend_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="88dp"
         android:layout_marginTop="36dp"
         android:text="@string/save"
+        app:layout_constraintEnd_toStartOf="@+id/expend_clear"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expend_info" />
 
     <Button
-        android:id="@+id/expend_next"
+        android:id="@+id/expend_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="224dp"
         android:layout_marginTop="36dp"
-        android:text="@string/next"
+        android:text="@string/clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expend_info" />
 
