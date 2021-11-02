@@ -13,6 +13,7 @@ import de.vogella.android.myapplication.R
 import de.vogella.android.myapplication.components.createBuilder
 import de.vogella.android.myapplication.components.get_data
 import de.vogella.android.myapplication.components.requestQueue_Manager
+import org.json.JSONObject
 import kotlin.collections.ArrayList
 
 
@@ -25,18 +26,40 @@ class insert_expend_Fragment : Fragment() {
         R.id.expend_info
     )
     private val url = "http://10.0.2.2:3001/trade"
-
+    private lateinit var data : ArrayList<String>
+    private lateinit var method : String
+    private lateinit var jsonData : JSONObject
+    private lateinit var _id : String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_insert_expend, container, false)
+        val bundle = this.arguments
         val gatdata = get_trade_data(root)
         val btn = root.findViewById<Button>(R.id.expend_save)
         val btn2 = root.findViewById<Button>(R.id.expend_clear)
         val date = root.findViewById<EditText>(R.id.expend_time)
-        date.onFocusChangeListener = View.OnFocusChangeListener{root, b->
+
+        if (bundle != null) {
+            if (bundle.containsKey("method"))
+                method = bundle.getString("method").toString()
+            if (bundle.containsKey("data")){
+                data = bundle.getStringArrayList("data") as ArrayList<String>
+                if(data.size == 6){
+                    val textViewSet = get_data(root).get_EditText(editText_id)
+                    for (i in 0..4)
+                        textViewSet[i].setText(data[i])
+                    _id = data[5]
+                }
+            }
+        } else {
+            data = arrayListOf()
+            method = "put"
+        }
+
+        date.onFocusChangeListener = View.OnFocusChangeListener{ _, b->
             if (b){
                 val c = Calendar.getInstance()
                 val year = c.get(Calendar.YEAR)
@@ -51,7 +74,11 @@ class insert_expend_Fragment : Fragment() {
         }
 
         btn.setOnClickListener {
-            val jsonData = gatdata.get_jsonData(editText_id,1)
+            if(!data.isEmpty()) {
+                if (data.size == 6)
+                    jsonData = gatdata.get_jsonData(editText_id, 1, _id)
+            }else
+                jsonData = gatdata.get_jsonData(editText_id,1)
 
             val requestManage = context?.let{ requestQueue_Manager(it) }
             requestManage?.Request("post",url,jsonData){ res ->

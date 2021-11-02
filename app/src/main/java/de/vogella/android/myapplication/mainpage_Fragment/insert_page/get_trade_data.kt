@@ -5,7 +5,7 @@ import de.vogella.android.myapplication.components.get_data
 import org.json.JSONObject
 
 class get_trade_data(view : View) : get_data(view){
-    fun get_jsonData(editText_Id:ArrayList<Int>, type : Int) :JSONObject{
+    fun get_jsonData(editText_Id:ArrayList<Int>, type : Int,_id:String? = null) :JSONObject{
         val data = get_data(editText_Id)
         val jsonObj = JSONObject()
         jsonObj.put("is_income",type.toString())
@@ -14,6 +14,9 @@ class get_trade_data(view : View) : get_data(view){
         jsonObj.put("class",data[2])
         jsonObj.put("type",data[3])
         jsonObj.put("info",data[4])
+        if (_id!=null){
+            jsonObj.put("tid",_id)
+        }
         return jsonObj
     }
 }

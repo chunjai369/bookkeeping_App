@@ -18,13 +18,14 @@ import org.json.JSONArray
 class item_Info_Fragment : Fragment() {
     private val url1 = "http://10.0.2.2:3001/trade/income_expend?type=income&date="
     private val url2 = "http://10.0.2.2:3001/trade/income_expend?type=expend&date="
+    private lateinit var  date : String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_item_info, container, false)
-        val date = this.requireArguments().getString("date")
+        date = this.requireArguments().getString("date").toString()
         var data1 : ArrayList<ArrayList<String>>
         var data2 : ArrayList<ArrayList<String>>
         val dateTextView = root.findViewById(R.id.item_info_date) as TextView
@@ -36,7 +37,6 @@ class item_Info_Fragment : Fragment() {
 
         val requestManage = context?.let { requestQueue_Manager(it) }
         requestManage?.Request("get",url1+date,null,Response.Listener<JSONArray>{  res->
-            Log.v("hh",res.toString())
             if(res.length() != 0){
                 data1 = changeData(res)
                 recyclerView_income.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -45,7 +45,6 @@ class item_Info_Fragment : Fragment() {
         })
 
         requestManage?.Request("get",url2+date,null,Response.Listener<JSONArray>{  res->
-            Log.v("hh",res.toString())
             if(res.length() != 0){
                 data2 = changeData(res)
                 recyclerView_expend.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -60,11 +59,12 @@ class item_Info_Fragment : Fragment() {
         val data : ArrayList<ArrayList<String>> = arrayListOf()
         for(i in 0 until res.length()){
             var tempArrayList : ArrayList<String> = arrayListOf()
-            tempArrayList.add(res.getJSONObject(i).getString("type"))
-            tempArrayList.add(res.getJSONObject(i).getString("class"))
+            tempArrayList.add(date)
             tempArrayList.add(res.getJSONObject(i).getString("how_mach"))
-            tempArrayList.add(res.getJSONObject(i).getString("tid"))
+            tempArrayList.add(res.getJSONObject(i).getString("class"))
+            tempArrayList.add(res.getJSONObject(i).getString("type"))
             tempArrayList.add(res.getJSONObject(i).getString("info"))
+            tempArrayList.add(res.getJSONObject(i).getString("tid"))
             data.add(tempArrayList)
         }
         return data

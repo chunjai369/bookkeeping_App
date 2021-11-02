@@ -2,11 +2,7 @@ package de.vogella.android.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import de.vogella.android.myapplication.mainpage_Fragment.record_page.item_Fragment.item_Adapter
 import de.vogella.android.myapplication.mainpage_Fragment.record_page.item_Info_Fragment
 
 class record_itemInformationActivity : AppCompatActivity() {

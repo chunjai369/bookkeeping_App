@@ -42,8 +42,8 @@ class item_Adapter (private val fa: FragmentManager,private val is_income:Boolea
         var j  = 0
         for (i in viewHolder.textView) {
             when(j){
-                2 -> i.text = "$" + dataSet[position][j]
-                else -> i.text = dataSet[position][j]
+                2 -> i.text = "$" + dataSet[position][3-j]
+                else -> i.text = dataSet[position][3-j]
             }
             j++
         }
@@ -52,7 +52,8 @@ class item_Adapter (private val fa: FragmentManager,private val is_income:Boolea
                 val transaction = fa.beginTransaction()
                 transaction.addToBackStack("firstPage")
                 val bundle = Bundle()
-                bundle.putStringArrayList("date",dataSet[position])
+                bundle.putStringArrayList("data",dataSet[position])
+                bundle.putString("method","patch")
                 var fragment:Fragment
                 if (is_income)
                     fragment = insert_income_Fragment()
