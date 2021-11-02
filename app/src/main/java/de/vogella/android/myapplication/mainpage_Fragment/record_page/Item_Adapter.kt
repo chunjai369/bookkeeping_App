@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.ColorRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,14 +18,16 @@ import de.vogella.android.myapplication.R
 import de.vogella.android.myapplication.components.requestQueue_Manager
 import de.vogella.android.myapplication.mainpage_Fragment.insert_page.insert_expend_Fragment
 import de.vogella.android.myapplication.mainpage_Fragment.insert_page.insert_income_Fragment
-import de.vogella.android.myapplication.record_itemInformationActivity
 import org.json.JSONObject
 
 class item_Adapter (private val fam: FragmentManager,
                     private val fa: Fragment,
-                    private val p :String,
+                    private val p : String,
                     private val dataSet: ArrayList<ArrayList<String>>):
     RecyclerView.Adapter<item_Adapter.ViewHolder>(){
+    var income = 0
+    var expend = 0
+    var is_empty = false
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val edit_imageView = view.findViewById(R.id.item_edit) as ImageView
         val delete_imageView = view.findViewById(R.id.item_del) as ImageView
@@ -65,7 +66,6 @@ class item_Adapter (private val fam: FragmentManager,
             }
             j++
         }
-
         viewHolder.edit_imageView.setOnClickListener{
                 val transaction = fam.beginTransaction()
                 transaction.addToBackStack("firstPage")
@@ -87,10 +87,20 @@ class item_Adapter (private val fam: FragmentManager,
             val requestManage = requestQueue_Manager(v.context)
             requestManage.Request("delete",url,null,Response.Listener<JSONObject>{ res ->
                 if (res.getBoolean("is_delete")) {
+                    if (dataSet[position][6] == "0") {
+                        income += dataSet[position][1].toInt()
+                    }
+                    else {
+                        expend += dataSet[position][1].toInt()
+                    }
                     deleteItem(position)
                     if (dataSet.size == 0){
+                        is_empty = true
                         val del_data = Intent()
                         del_data.putExtra("position", p)
+                        del_data.putExtra("del_income_totle", income.toString())
+                        del_data.putExtra("del_expend_totle", expend.toString())
+                        del_data.putExtra("is_empty", is_empty.toString())
                         fa.activity?.setResult(Activity.RESULT_OK, del_data)
                         fa.activity?.finish()
                     }
@@ -106,4 +116,10 @@ class item_Adapter (private val fam: FragmentManager,
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, dataSet.size)
     }
+
+
+    fun getIncomeExpend() : Triple<Int,Int,Boolean>{
+        return Triple(income,expend,is_empty)
+    }
+
 }

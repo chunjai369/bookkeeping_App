@@ -56,13 +56,30 @@ class record : Fragment() {
         month_spinner.adapter = month_adapter
         year_beforePosition =0
         month_beforePosition =0
+
         launchSomeActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val position = result.data?.getStringExtra("position")?.toInt()
-                if (position != null) {
-                    data.removeAt(position)
-                    recyclerView.adapter?.notifyItemRemoved(position)
-                    recyclerView.adapter?.notifyItemRangeChanged(position, data.size)
+                val is_empty = result.data?.getStringExtra("is_empty").toBoolean()
+                if(position!=null) {
+                    if (!is_empty) {
+                        val del_income_totle = result.data?.getStringExtra("del_income_totle")?.toInt()!!
+                        val del_expend_totle = result.data?.getStringExtra("del_expend_totle")?.toInt()!!
+                        data[position][1] = (data[position][1].toInt()-del_income_totle).toString()
+                        data[position][2] = (data[position][2].toInt()-del_expend_totle).toString()
+                        data[position][3] = (data[position][1].toInt()-data[position][2].toInt()).toString()
+                        total_Income -= del_income_totle
+                        total_Expend -= del_expend_totle
+                        resetTotalView()
+                        resetRecyclerView(data)
+                    }else{
+                        total_Income -= data[position][1].toInt()
+                        total_Expend -= data[position][2].toInt()
+                        resetTotalView()
+                        data.removeAt(position)
+                        recyclerView.adapter?.notifyItemRemoved(position)
+                        recyclerView.adapter?.notifyItemRangeChanged(position, data.size)
+                    }
                 }
             }
         }
@@ -72,13 +89,7 @@ class record : Fragment() {
             queue_Manager.Request(
                 "get", getUrl(), null,
                 Response.Listener<JSONArray>{ res ->
-                    val (a,b,c) = getshowdata(res)
-                    data= a
-                    total_Income=b
-                    total_Expend=c
-                    incomeView.setText("$"+total_Income.toString())
-                    expendView.setText("$"+total_Expend.toString())
-                    totalView.setText("$"+(total_Income-total_Expend).toString())
+                    resetTotalView(getshowdata(res))
                     resetRecyclerView(data)
                 }
             )
@@ -96,19 +107,12 @@ class record : Fragment() {
                     year_beforePosition = position
                     val queue_Manager = context?.let { requestQueue_Manager(it) }
                     queue_Manager?.Request2("get",getUrl(), null, Response.Listener{ res ->
-                        val (a,b,c) = getshowdata(res)
-                        data= a
-                        total_Income=b
-                        total_Expend=c
-                        incomeView.setText("$"+total_Income.toString())
-                        expendView.setText("$"+total_Expend.toString())
-                        totalView.setText("$"+(total_Income-total_Expend).toString())
+                        resetTotalView(getshowdata(res))
                         resetRecyclerView(data)
                     })
                 }
             }
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
         month_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -117,27 +121,17 @@ class record : Fragment() {
                     month_beforePosition = position
                     val queue_Manager = context?.let { requestQueue_Manager(it) }
                     queue_Manager?.Request2("get",getUrl(), null, Response.Listener{ res ->
-                        val (a,b,c) = getshowdata(res)
-                        data= a
-                        total_Income=b
-                        total_Expend=c
-                        incomeView.setText("$"+total_Income.toString())
-                        expendView.setText("$"+total_Expend.toString())
-                        totalView.setText("$"+(total_Income-total_Expend).toString())
+                        resetTotalView(getshowdata(res))
                         resetRecyclerView(data)
                     })
                 }
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
     }
 
-
-    fun getshowdata(res:JSONArray?) : Triple<ArrayList<ArrayList<String>>,Int,Int>{
+    private fun getshowdata(res:JSONArray?) : Triple<ArrayList<ArrayList<String>>,Int,Int>{
         var datamap  =  mutableMapOf<String,Array<Int>>()
         var total_Income = 0
         var total_Expend = 0
@@ -181,16 +175,28 @@ class record : Fragment() {
         return Triple(data,total_Income,total_Expend)
     }
 
-    fun getUrl():String{
+    private fun getUrl():String{
         val year = year_spinner.getSelectedItem().toString()
         val month = month_spinner.getSelectedItem().toString()
         var url2 = url+"year=$year&month=$month"
         return url2
     }
 
-    fun resetRecyclerView(data:ArrayList<ArrayList<String>>){
+    private fun resetRecyclerView(data:ArrayList<ArrayList<String>>){
         recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = record_Adapter(launchSomeActivity,data)
+    }
+
+    private fun resetTotalView(changeValue:Triple<ArrayList<ArrayList<String>>,Int,Int>? = null){
+        if (changeValue!=null){
+            val (a,b,c) = changeValue
+            data= a
+            total_Income=b
+            total_Expend=c
+        }
+        incomeView.text = ("$"+total_Income.toString())
+        expendView.text = ("$"+total_Expend.toString())
+        totalView.text  = ("$"+(total_Income-total_Expend).toString())
     }
 
 }
