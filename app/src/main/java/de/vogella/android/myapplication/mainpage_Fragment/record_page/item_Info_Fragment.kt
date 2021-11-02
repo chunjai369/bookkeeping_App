@@ -39,7 +39,7 @@ class item_Info_Fragment : Fragment() {
         val requestManage = context?.let { requestQueue_Manager(it) }
 
         del_btn.setOnClickListener{ v->
-            val url = "http://10.0.2.2:3001/trade?date=$date"
+            val url = "http://10.0.2.2:3001/trade?type=date&date=$date"
             val requestManage = requestQueue_Manager(v.context)
             requestManage.Request("delete",url,null,Response.Listener<JSONObject>{ res ->
                 if (res.getBoolean("is_delete")) {
