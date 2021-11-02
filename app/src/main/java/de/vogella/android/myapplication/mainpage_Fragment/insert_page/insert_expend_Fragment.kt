@@ -47,7 +47,7 @@ class insert_expend_Fragment : Fragment() {
                 method = bundle.getString("method").toString()
             if (bundle.containsKey("data")){
                 data = bundle.getStringArrayList("data") as ArrayList<String>
-                if(data.size == 6){
+                if(data.size == 7){
                     val textViewSet = get_data(root).get_EditText(editText_id)
                     for (i in 0..4)
                         textViewSet[i].setText(data[i])
@@ -75,7 +75,7 @@ class insert_expend_Fragment : Fragment() {
 
         btn.setOnClickListener {
             if(!data.isEmpty()) {
-                if (data.size == 6)
+                if (data.size == 7)
                     jsonData = gatdata.get_jsonData(editText_id, 1, _id)
             }else
                 jsonData = gatdata.get_jsonData(editText_id,1)
