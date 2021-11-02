@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView
 import de.vogella.android.myapplication.R
 import de.vogella.android.myapplication.record_itemInformationActivity
 
 
-class record_Adapter (private val dataSet: ArrayList<ArrayList<String>>):
+class record_Adapter(private val launchSomeActivity: ActivityResultLauncher<Intent>, private val dataSet: ArrayList<ArrayList<String>>):
     RecyclerView.Adapter<record_Adapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView = view.findViewById(R.id.long_information) as ImageView
@@ -49,7 +50,9 @@ class record_Adapter (private val dataSet: ArrayList<ArrayList<String>>):
         viewHolder.imageView.setOnClickListener{ v ->
             val intent =Intent(v.context, record_itemInformationActivity::class.java)
             intent.putExtra("date", dataSet[position][0])
-            v.context.startActivity(intent)
+            intent.putExtra("position", position.toString())
+            Log.v("dsada",position.toString())
+            launchSomeActivity.launch(intent)
         }
     }
 

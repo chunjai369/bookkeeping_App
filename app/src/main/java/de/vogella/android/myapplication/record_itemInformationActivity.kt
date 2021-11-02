@@ -11,8 +11,10 @@ class record_itemInformationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_record_item_information)
         val intent = getIntent()
         val date = intent.getStringExtra("date")
+        val position = intent.getStringExtra("position")
         val bundle = Bundle()
         bundle.putString("date",date)
+        bundle.putString("position",position)
         val fragment = item_Info_Fragment()
         fragment.arguments = bundle
         showFragment(fragment)
@@ -24,4 +26,5 @@ class record_itemInformationActivity : AppCompatActivity() {
         transaction.replace(R.id.item_Info_container,fragments,"firstPage")
         transaction.commit()
     }
+
 }
