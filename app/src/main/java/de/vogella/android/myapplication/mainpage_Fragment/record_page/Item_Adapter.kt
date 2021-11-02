@@ -1,5 +1,8 @@
 package de.vogella.android.myapplication.mainpage_Fragment.record_page.item_Fragment
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +22,9 @@ import de.vogella.android.myapplication.mainpage_Fragment.insert_page.insert_inc
 import de.vogella.android.myapplication.record_itemInformationActivity
 import org.json.JSONObject
 
-class item_Adapter (private val fam: FragmentManager,private val fa: Fragment,
-                    private val is_income:Boolean,
+class item_Adapter (private val fam: FragmentManager,
+                    private val fa: Fragment,
+                    private val p :String,
                     private val dataSet: ArrayList<ArrayList<String>>):
     RecyclerView.Adapter<item_Adapter.ViewHolder>(){
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -49,7 +54,13 @@ class item_Adapter (private val fam: FragmentManager,private val fa: Fragment,
         var j  = 0
         for (i in viewHolder.textView) {
             when(j){
-                2 -> i.text = "$" + dataSet[position][3-j]
+                2 -> if (dataSet[position][6] == "0") {
+                        i.text = "$" + dataSet[position][3-j]
+                        i.setTextColor(Color.BLUE)
+                    }else{
+                        i.text = "$" + (dataSet[position][3-j].toInt()*-1).toString()
+                        i.setTextColor(Color.RED)}
+
                 else -> i.text = dataSet[position][3-j]
             }
             j++
@@ -62,7 +73,7 @@ class item_Adapter (private val fam: FragmentManager,private val fa: Fragment,
                 bundle.putStringArrayList("data",dataSet[position])
                 bundle.putString("method","patch")
                 var fragment:Fragment
-                if (is_income)
+                if (dataSet[position][6] == "0")
                     fragment = insert_income_Fragment()
                 else
                     fragment = insert_expend_Fragment()
@@ -77,7 +88,12 @@ class item_Adapter (private val fam: FragmentManager,private val fa: Fragment,
             requestManage.Request("delete",url,null,Response.Listener<JSONObject>{ res ->
                 if (res.getBoolean("is_delete")) {
                     deleteItem(position)
-                    //fa.activity?.finish()
+                    if (dataSet.size == 0){
+                        val del_data = Intent()
+                        del_data.putExtra("position", p)
+                        fa.activity?.setResult(Activity.RESULT_OK, del_data)
+                        fa.activity?.finish()
+                    }
                 }
             })
         }

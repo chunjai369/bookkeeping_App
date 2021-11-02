@@ -55,7 +55,7 @@ class item_Info_Fragment : Fragment() {
             if(res.length() != 0){
                 data = changeData(res)
                 recyclerView_income.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                recyclerView_income.adapter = manager?.let { item_Adapter(it, this,true,data) }
+                recyclerView_income.adapter = manager?.let { item_Adapter(it, this,position,data) }
             }
         })
 
@@ -72,6 +72,7 @@ class item_Info_Fragment : Fragment() {
             tempArrayList.add(res.getJSONObject(i).getString("type"))
             tempArrayList.add(res.getJSONObject(i).getString("info"))
             tempArrayList.add(res.getJSONObject(i).getString("tid"))
+            tempArrayList.add(res.getJSONObject(i).getString("is_income"))
             data.add(tempArrayList)
         }
         return data
