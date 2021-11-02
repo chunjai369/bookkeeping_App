@@ -30,30 +30,11 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="55dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/income" />
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_income"
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="290dp"
-        android:background="@drawable/border" />
-
-    <TextView
-        android:layout_width="55dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/expend" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_expend"
-        android:layout_width="match_parent"
-        android:layout_height="290dp"
+        android:layout_height="660dp"
         android:layout_margin="10dp"
         android:background="@drawable/border" />
+
 </LinearLayout>
