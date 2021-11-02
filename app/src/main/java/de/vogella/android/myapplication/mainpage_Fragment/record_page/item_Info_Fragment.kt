@@ -3,11 +3,13 @@ package de.vogella.android.myapplication.mainpage_Fragment.record_page
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +21,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class item_Info_Fragment : Fragment() {
-    private val url1 = "http://10.0.2.2:3001/trade/income_expend?date="
+    private val url1 = "http://10.0.2.2:3001/trade/income_expend?type=income&date="
+    private val url2 = "http://10.0.2.2:3001/trade/income_expend?type=expend&date="
     private lateinit var  date : String
     private lateinit var  position : String
     override fun onCreateView(
@@ -30,11 +33,13 @@ class item_Info_Fragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_item_info, container, false)
         date = this.requireArguments().getString("date").toString()
         position = this.requireArguments().getString("position").toString()
-        var data : ArrayList<ArrayList<String>>
+        var data1 : ArrayList<ArrayList<String>>
+        var data2 : ArrayList<ArrayList<String>>
         val dateTextView = root.findViewById(R.id.item_info_date) as TextView
         dateTextView.setText(date)
         val manager = activity?.supportFragmentManager
-        val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerview_item)
+        val recyclerView_income = root.findViewById<RecyclerView>(R.id.recyclerview_income)
+        val recyclerView_expend = root.findViewById<RecyclerView>(R.id.recyclerview_expend)
         val del_btn = root.findViewById<ImageView>(R.id.del_date)
         val requestManage = context?.let { requestQueue_Manager(it) }
 
@@ -53,12 +58,19 @@ class item_Info_Fragment : Fragment() {
 
         requestManage?.Request("get",url1+date,null,Response.Listener<JSONArray>{  res->
             if(res.length() != 0){
-                data = changeData(res)
-                recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                recyclerView.adapter = manager?.let { item_Adapter(it,this,position,true,data) }
+                data1 = changeData(res)
+                recyclerView_income.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                recyclerView_income.adapter = manager?.let { item_Adapter(it, this,true,data1) }
             }
         })
 
+        requestManage?.Request("get",url2+date,null,Response.Listener<JSONArray>{  res->
+            if(res.length() != 0){
+                data2 = changeData(res)
+                recyclerView_expend.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                recyclerView_expend.adapter = manager?.let { item_Adapter(it, this,false,data2) }
+            }
+        })
         return root
     }
 

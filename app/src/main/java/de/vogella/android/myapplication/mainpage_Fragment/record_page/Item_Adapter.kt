@@ -1,9 +1,6 @@
 package de.vogella.android.myapplication.mainpage_Fragment.record_page.item_Fragment
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +18,7 @@ import de.vogella.android.myapplication.mainpage_Fragment.insert_page.insert_inc
 import de.vogella.android.myapplication.record_itemInformationActivity
 import org.json.JSONObject
 
-class item_Adapter (private val fam: FragmentManager,
-                    private val fa: Fragment,
+class item_Adapter (private val fam: FragmentManager,private val fa: Fragment,
                     private val is_income:Boolean,
                     private val dataSet: ArrayList<ArrayList<String>>):
     RecyclerView.Adapter<item_Adapter.ViewHolder>(){
@@ -81,12 +77,6 @@ class item_Adapter (private val fam: FragmentManager,
             requestManage.Request("delete",url,null,Response.Listener<JSONObject>{ res ->
                 if (res.getBoolean("is_delete")) {
                     deleteItem(position)
-                    if (dataSet.size == 0)
-                    Log.v("aaa",dataSet.size.toString())
-                    val del_data = Intent()
-                    del_data.putExtra("position", p)
-                    fa.activity?.setResult(Activity.RESULT_OK, del_data)
-                    fa.activity?.finish()
                     //fa.activity?.finish()
                 }
             })

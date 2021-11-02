@@ -1,22 +1,19 @@
 package de.vogella.android.myapplication.mainpage_Fragment.record_page
 
-import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
+import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView
 import de.vogella.android.myapplication.R
 import de.vogella.android.myapplication.record_itemInformationActivity
 
 
-class record_Adapter(private val fa: AdapterView.OnItemSelectedListener, private val dataSet: ArrayList<ArrayList<String>>):
+class record_Adapter(private val launchSomeActivity: ActivityResultLauncher<Intent>, private val dataSet: ArrayList<ArrayList<String>>):
     RecyclerView.Adapter<record_Adapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView = view.findViewById(R.id.long_information) as ImageView
@@ -51,24 +48,14 @@ class record_Adapter(private val fa: AdapterView.OnItemSelectedListener, private
             j++
         }
         viewHolder.imageView.setOnClickListener{ v ->
-            var launchSomeActivity = fa.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    val data: Intent? = result.data
-                    Log.v("hihi",data.toString())
-                }
-            }
             val intent =Intent(v.context, record_itemInformationActivity::class.java)
             intent.putExtra("date", dataSet[position][0])
+            intent.putExtra("position", position.toString())
+            Log.v("dsada",position.toString())
             launchSomeActivity.launch(intent)
-            //v.context.startActivity(intent)
         }
     }
 
     override fun getItemCount() = dataSet.size
 
-    private fun deleteItem(position: Int) {
-        dataSet.removeAt(position)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, dataSet.size)
-    }
 }
