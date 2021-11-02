@@ -55,7 +55,7 @@ class insert_income_Fragment : Fragment() {
             }
         } else {
             data = arrayListOf()
-            method = "put"
+            method = "post"
         }
 
         date.onFocusChangeListener = View.OnFocusChangeListener{root, b->

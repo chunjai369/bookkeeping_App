@@ -56,7 +56,7 @@ class insert_expend_Fragment : Fragment() {
             }
         } else {
             data = arrayListOf()
-            method = "put"
+            method = "post"
         }
 
         date.onFocusChangeListener = View.OnFocusChangeListener{ _, b->
@@ -81,7 +81,7 @@ class insert_expend_Fragment : Fragment() {
                 jsonData = gatdata.get_jsonData(editText_id,1)
 
             val requestManage = context?.let{ requestQueue_Manager(it) }
-            requestManage?.Request("post",url,jsonData){ res ->
+            requestManage?.Request(method,url,jsonData){ res ->
                 if (res.getBoolean("is_save")){
                     val builder = context?.let{ createBuilder(it) }
                     builder?.basisBulider(R.string.tips,R.string.is_save){}?.show()
